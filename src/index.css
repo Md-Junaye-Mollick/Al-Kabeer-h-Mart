@@ -1,0 +1,67 @@
+@tailwind base;
+@tailwind components;
+@tailwind utilities;
+
+:root {
+  --primary: #0AAD38;
+  --primary-dark: #087C2A;
+  --primary-light: #EAF8EE;
+
+  --secondary: #FFB800;
+  --secondary-dark: #D99B00;
+
+  --background: #F7F8FA;
+  --surface: #FFFFFF;
+  --surface-soft: #F2F5F3;
+
+  --text-primary: #111827;
+  --text-secondary: #667085;
+  --text-muted: #98A2B3;
+
+  --border: #E5E7EB;
+
+  --success: #16A34A;
+  --danger: #EF4444;
+
+  --footer: #050B16;
+}
+
+/* Prevent accidental horizontal overflow / viewport wiggling on mobile devices without breaking position: sticky */
+html,
+body {
+  max-width: 100%;
+  overflow-x: clip;
+  position: relative;
+  width: 100%;
+}
+
+#root {
+  max-width: 100%;
+  overflow-x: clip;
+  position: relative;
+  width: 100%;
+}
+
+/* Custom scrollbar utility */
+.no-scrollbar::-webkit-scrollbar {
+  display: none;
+}
+.no-scrollbar {
+  -ms-overflow-style: none;
+  scrollbar-width: none;
+}
+
+/* Smooth micro-interactions */
+.interactive-lift {
+  transition: transform 0.2s cubic-bezier(0.16, 1, 0.3, 1), box-shadow 0.2s cubic-bezier(0.16, 1, 0.3, 1);
+}
+.interactive-lift:hover {
+  transform: translateY(-2px);
+}
+
+/* Hide spin buttons on number inputs */
+input[type='number']::-webkit-inner-spin-button,
+input[type='number']::-webkit-outer-spin-button {
+  -webkit-appearance: none;
+  margin: 0;
+}
