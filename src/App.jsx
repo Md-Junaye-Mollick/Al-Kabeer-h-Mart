@@ -13,6 +13,16 @@ import { Cart } from './pages/Cart';
 import { Checkout } from './pages/Checkout';
 import { Login } from './pages/Login';
 
+// Modern Admin Panel imports
+import { AdminLayout } from './admin/components/AdminLayout';
+import { AdminDashboard } from './admin/pages/AdminDashboard';
+import { AdminProducts } from './admin/pages/AdminProducts';
+import { AdminCategories } from './admin/pages/AdminCategories';
+import { AdminOrders } from './admin/pages/AdminOrders';
+import { AdminCustomers } from './admin/pages/AdminCustomers';
+import { AdminPromotions } from './admin/pages/AdminPromotions';
+import { AdminSettings } from './admin/pages/AdminSettings';
+
 // Scroll to top on page navigation
 function ScrollToTop() {
   const { pathname } = useLocation();
@@ -97,7 +107,21 @@ export default function App() {
         <AuthProvider>
           <CartProvider>
             <OrderProvider>
-              <MainLayout />
+              <Routes>
+                {/* Modern Admin Dashboard Routes */}
+                <Route path="/admin" element={<AdminLayout />}>
+                  <Route index element={<AdminDashboard />} />
+                  <Route path="products" element={<AdminProducts />} />
+                  <Route path="categories" element={<AdminCategories />} />
+                  <Route path="orders" element={<AdminOrders />} />
+                  <Route path="customers" element={<AdminCustomers />} />
+                  <Route path="promotions" element={<AdminPromotions />} />
+                  <Route path="settings" element={<AdminSettings />} />
+                </Route>
+
+                {/* Customer-Facing Store Routes */}
+                <Route path="/*" element={<MainLayout />} />
+              </Routes>
             </OrderProvider>
           </CartProvider>
         </AuthProvider>

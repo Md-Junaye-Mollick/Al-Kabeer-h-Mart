@@ -38,12 +38,12 @@ export function LanguageSelector({ variant = 'header' }) {
         aria-label={t('nav.selectLanguage') || 'Select Language'}
         aria-expanded={isOpen}
         title={t('nav.selectLanguage') || 'Change Language'}
-        className={`w-9 h-9 rounded-full flex items-center justify-center border transition-all duration-200 cursor-pointer select-none focus:outline-hidden focus:ring-2 focus:ring-primary/40 active:scale-95 ${
+        className={`w-9 h-9 rounded-full flex items-center justify-center border transition-all duration-200 hover:scale-105 cursor-pointer select-none outline-none focus:outline-none focus:ring-2 focus:ring-primary focus:border-primary active:scale-95 ${
           isOpen
-            ? 'bg-primary-light/80 border-primary text-primary shadow-xs'
+            ? 'bg-primary-light/80 border-primary text-primary shadow-xs ring-2 ring-primary/40'
             : variant === 'header'
             ? 'bg-surface hover:bg-surface-soft border-border text-text-primary hover:border-primary/50 hover:text-primary shadow-2xs'
-            : 'bg-surface hover:bg-surface-soft border-border text-text-primary'
+            : 'bg-surface hover:bg-surface-soft border-border text-text-primary hover:border-primary/50 hover:text-primary'
         }`}
       >
         <Globe2 className="w-5 h-5 transition-transform duration-200" />

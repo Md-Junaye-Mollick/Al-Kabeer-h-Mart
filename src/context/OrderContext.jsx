@@ -48,6 +48,31 @@ export function OrderProvider({ children }) {
     );
   };
 
+  const updateOrderStatus = (orderId, newStatus) => {
+    setOrders((prev) =>
+      prev.map((order) => {
+        if (String(order.id).trim() === String(orderId).trim()) {
+          const isHistory = newStatus === 'Delivered' || newStatus === 'Cancelled';
+          const nowStr = new Date().toLocaleDateString('en-GB', {
+            day: 'numeric',
+            month: 'short',
+            hour: '2-digit',
+            minute: '2-digit',
+          });
+
+          return {
+            ...order,
+            status: newStatus,
+            statusType: isHistory ? 'history' : 'active',
+            ...(newStatus === 'Delivered' ? { deliveredAt: `Updated, ${nowStr}` } : {}),
+            ...(newStatus === 'Cancelled' ? { cancelledAt: `Cancelled, ${nowStr}` } : {}),
+          };
+        }
+        return order;
+      })
+    );
+  };
+
   const getOrder = (orderId) => {
     return orders.find((o) => o.id === orderId) || null;
   };
@@ -58,6 +83,7 @@ export function OrderProvider({ children }) {
         orders,
         addOrder,
         cancelOrder,
+        updateOrderStatus,
         getOrder,
       }}
     >

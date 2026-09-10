@@ -316,6 +316,13 @@ export function Footer({ onOpenVip }) {
             >
               WhatsApp
             </a>
+            <span className="text-border select-none">•</span>
+            <Link
+              to="/admin"
+              className="whitespace-nowrap font-bold text-primary hover:underline transition-colors"
+            >
+              Admin Portal
+            </Link>
           </div>
         </div>
 
