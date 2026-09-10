@@ -37,13 +37,40 @@ export function Checkout() {
     ? [{ ...state.product, quantity: state.quantity || 1 }]
     : cart;
 
-  // Form State
-  const [name, setName] = useState(user?.name || 'Tariq Ahmed');
-  const [phone, setPhone] = useState(user?.phone || '9002461519');
-  const [address, setAddress] = useState(
-    user?.address || 'Mollar Chawk, Sarkarpara More, Bhagabatipur, Hooghly - 712701'
-  );
-  const [pincode, setPincode] = useState('712701');
+  // Form State initialized from saved addresses or fallback
+  const initialAddr = (() => {
+    try {
+      const saved = localStorage.getItem('alkabeer_saved_addresses');
+      if (saved) {
+        const parsed = JSON.parse(saved);
+        const def = parsed.find((a) => a.isDefault) || parsed[0];
+        if (def) {
+          const formatted = [def.house, def.street, def.landmark, def.city]
+            .filter(Boolean)
+            .join(', ');
+          return {
+            name: def.name || user?.name || 'Tariq Ahmed',
+            phone: def.phone ? def.phone.replace('+91 ', '').replace('+91', '') : user?.phone || '9002461519',
+            address: formatted || user?.address || 'Mollar Chawk, Sarkarpara More, Bhagabatipur, Hooghly - 712701',
+            pincode: def.pincode || '712701',
+          };
+        }
+      }
+    } catch (e) {
+      // ignore
+    }
+    return {
+      name: user?.name || 'Tariq Ahmed',
+      phone: user?.phone || '9002461519',
+      address: user?.address || 'Mollar Chawk, Sarkarpara More, Bhagabatipur, Hooghly - 712701',
+      pincode: '712701',
+    };
+  })();
+
+  const [name, setName] = useState(initialAddr.name);
+  const [phone, setPhone] = useState(initialAddr.phone);
+  const [address, setAddress] = useState(initialAddr.address);
+  const [pincode, setPincode] = useState(initialAddr.pincode);
   const [paymentMethod, setPaymentMethod] = useState('cod'); // 'cod', 'upi', 'card', 'netbanking'
   const [paymentDetails, setPaymentDetails] = useState({
     cardNumber: '',
